@@ -12,10 +12,21 @@ import java.util.stream.Collectors;
 public class ToDoListService {
     @Autowired
     private ToDoListItemRepository toDoListItemRepository;
-
-    public void addParkingLot(ToDoListItem toDoListItem) {
-        System.out.println(toDoListItem);
-        toDoListItemRepository.save(toDoListItem);
+    public  boolean isExistedToDoItem(String name){
+        ToDoListItem toDoListItemResult = toDoListItemRepository.findByName(name);
+        if(toDoListItemResult!=null){
+            return false;
+        }
+        return true;
+    }
+    public boolean addParkingLot(ToDoListItem toDoListItem) {
+        boolean isExisted = isExistedToDoItem(toDoListItem.getName());
+        if(isExisted){
+            toDoListItemRepository.save(toDoListItem);
+            return true;
+        }else{
+           return false;
+        }
 
     }
 
@@ -27,9 +38,9 @@ public class ToDoListService {
 
     }
 
-    public ToDoListItem updateAItem(String id, boolean state) {
+    public ToDoListItem updateAItem(String id) {
         ToDoListItem toDoListItem = toDoListItemRepository.findById(id).get();
-        toDoListItem.setState(state);
+        toDoListItem.setState(!toDoListItem.getState());
         toDoListItemRepository.save(toDoListItem);
         return toDoListItem;
     }

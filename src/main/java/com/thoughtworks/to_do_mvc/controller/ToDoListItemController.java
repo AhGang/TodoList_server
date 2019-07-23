@@ -20,8 +20,12 @@ public class ToDoListItemController {
 
     @PostMapping
     public ResponseEntity createAItem(@RequestBody ToDoListItem toDoListItem){
-        toDoListService.addParkingLot(toDoListItem);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        boolean isCreated = toDoListService.addParkingLot(toDoListItem);
+        if(isCreated){
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Already have the same toDoItem");
+        }
     }
     @GetMapping()
     public ResponseEntity getAllToDoListItem(){
@@ -29,10 +33,9 @@ public class ToDoListItemController {
         return ResponseEntity.status(HttpStatus.OK).body(toDoListItems);
     }
     @PutMapping(path = "/{id}")
-    public ResponseEntity putAItem(@RequestBody String id,@RequestBody boolean state){
-        ToDoListItem toDoListItem = toDoListService.updateAItem(id,state);
+    public ResponseEntity putAItem(@PathVariable String id){
+        ToDoListItem toDoListItem = toDoListService.updateAItem(id);
         return ResponseEntity.status(HttpStatus.OK).body(toDoListItem);
 
     }
-
 }
