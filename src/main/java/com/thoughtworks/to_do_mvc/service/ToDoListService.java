@@ -38,10 +38,9 @@ public class ToDoListService {
 
     }
 
-    public ToDoListItem updateAItem(String id) {
-        ToDoListItem toDoListItem = toDoListItemRepository.findById(id).get();
-        toDoListItem.setState(!toDoListItem.getState());
-        toDoListItemRepository.save(toDoListItem);
-        return toDoListItem;
+    public ToDoListItem updateAItem(String id,ToDoListItem item) {
+
+        ToDoListItem toDoListItem = toDoListItemRepository.saveAndFlush(item);
+        return item;
     }
 }

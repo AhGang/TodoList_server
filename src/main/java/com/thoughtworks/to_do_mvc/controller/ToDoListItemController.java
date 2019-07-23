@@ -33,8 +33,9 @@ public class ToDoListItemController {
         return ResponseEntity.status(HttpStatus.OK).body(toDoListItems);
     }
     @PutMapping(path = "/{id}")
-    public ResponseEntity putAItem(@PathVariable String id){
-        ToDoListItem toDoListItem = toDoListService.updateAItem(id);
+    public ResponseEntity putAItem(@PathVariable String id,@RequestBody ToDoListItem item){
+
+        ToDoListItem toDoListItem = toDoListService.updateAItem(id,item);
         return ResponseEntity.status(HttpStatus.OK).body(toDoListItem);
 
     }
