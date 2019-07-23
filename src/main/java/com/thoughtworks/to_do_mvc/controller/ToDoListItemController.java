@@ -28,5 +28,11 @@ public class ToDoListItemController {
         List<ToDoListItem> toDoListItems = toDoListService.getAllToDoListItems();
         return ResponseEntity.status(HttpStatus.OK).body(toDoListItems);
     }
+    @PutMapping(path = "/{id}")
+    public ResponseEntity putAItem(@RequestBody String id,@RequestBody boolean state){
+        ToDoListItem toDoListItem = toDoListService.updateAItem(id,state);
+        return ResponseEntity.status(HttpStatus.OK).body(toDoListItem);
+
+    }
 
 }

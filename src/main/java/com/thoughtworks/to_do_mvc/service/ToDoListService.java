@@ -26,4 +26,11 @@ public class ToDoListService {
 
 
     }
+
+    public ToDoListItem updateAItem(String id, boolean state) {
+        ToDoListItem toDoListItem = toDoListItemRepository.findById(id).get();
+        toDoListItem.setState(state);
+        toDoListItemRepository.save(toDoListItem);
+        return toDoListItem;
+    }
 }
