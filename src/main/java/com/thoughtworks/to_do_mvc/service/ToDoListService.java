@@ -43,4 +43,8 @@ public class ToDoListService {
         ToDoListItem toDoListItem = toDoListItemRepository.saveAndFlush(item);
         return item;
     }
+
+    public void deleteAItem(String id) {
+        toDoListItemRepository.deleteById(id);
+    }
 }

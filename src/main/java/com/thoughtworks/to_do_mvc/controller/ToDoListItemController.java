@@ -39,4 +39,11 @@ public class ToDoListItemController {
         return ResponseEntity.status(HttpStatus.OK).body(toDoListItem);
 
     }
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity putAItem(@PathVariable String id){
+
+        toDoListService.deleteAItem(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
+
+    }
 }
